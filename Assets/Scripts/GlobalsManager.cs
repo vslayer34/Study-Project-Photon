@@ -12,6 +12,7 @@ public class GlobalsManager : MonoBehaviour
     [field: SerializeField, Header("Instances")]
     public NetworkRunnerController NetwrokRunnerControllerInstance { get; private set; }
     public PlayerSpawnerController PlayerSpawnerControllerInstance { get; set; }
+    public ObjectPoolManager ObjectPoolManagerInstance { get; set; }
 
 
 

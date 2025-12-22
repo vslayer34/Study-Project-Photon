@@ -51,7 +51,9 @@ namespace PhotonCourse.Scripts.Network
                 GameMode = mode,
                 SessionName = roomName,
                 PlayerCount = 4,
-                SceneManager = _networkRunnerInstance.GetComponent<NetworkSceneManagerDefault>()
+                SceneManager = _networkRunnerInstance.GetComponent<NetworkSceneManagerDefault>(),
+                // SceneManager = _networkRunnerInstance.GetComponent<INetworkSceneManager>(),
+                ObjectPool = _networkRunnerInstance.GetComponent<INetworkObjectPool>()
             };
 
             var result = await _networkRunnerInstance.StartGame(args: startGameArgs);

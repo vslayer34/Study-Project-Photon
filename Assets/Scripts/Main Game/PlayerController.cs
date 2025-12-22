@@ -53,7 +53,7 @@ namespace PhotonCourse.Scripts.MainGame
         public NetworkButtons ButtonPrev { get; set; }
 
         [Networked]
-        private TickTimer _RespawnTimer { get; set; }
+        public TickTimer RespawnTimer { get; private set; }
 
         private Rigidbody2D _rigidBody;
         private float _horizontalInput;
@@ -91,6 +91,12 @@ namespace PhotonCourse.Scripts.MainGame
         {
             // _playerAnimController.UpdateCharacterAnimations(_rigidBody.linearVelocity);
             _playerAnimController.UpdateCharacterAnimations(_rigidBody.linearVelocity, _playerWeaponController.IsHoldingFireButton);
+        }
+
+        public override void Despawned(NetworkRunner runner, bool hasState)
+        {
+            GlobalsManager.Instance.ObjectPoolManagerInstance.RemoveGameobjectFromDictionary(Object);
+            Destroy(gameObject);
         }
 
         // Member Methods--------------------------------------------------------------------------
@@ -164,7 +170,7 @@ namespace PhotonCourse.Scripts.MainGame
             _rigidBody.simulated = false;
             _playerAnimController.UpdateDeathAnimations();
             IsPlayerAlive = false;
-            _RespawnTimer = TickTimer.CreateFromSeconds(Runner, 5.0f);
+            RespawnTimer = TickTimer.CreateFromSeconds(Runner, 5.0f);
         }
 
         private void RespawnPlayer()
@@ -185,9 +191,9 @@ namespace PhotonCourse.Scripts.MainGame
                 return;
             }
 
-            if (_RespawnTimer.Expired(Runner))
+            if (RespawnTimer.Expired(Runner))
             {
-                _RespawnTimer = TickTimer.None;
+                RespawnTimer = TickTimer.None;
                 RespawnPlayer();
             }
         }
