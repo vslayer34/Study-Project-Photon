@@ -78,7 +78,7 @@ namespace PhotonCourse.Scripts.MainGame
         {
             CheckRespawnTimer();
 
-            if (Runner.TryGetInputForPlayer<PlayerInputData>(Object.InputAuthority, out var input) && IsPlayerAlive)
+            if (Runner.TryGetInputForPlayer<PlayerInputData>(Object.InputAuthority, out var input) && AcceptInput)
             {
                 _rigidBody.linearVelocity = new Vector2(input.HorizontalInput * _moveSpeed, _rigidBody.linearVelocity.y);
                 CheckJumpInput(input);
@@ -186,7 +186,7 @@ namespace PhotonCourse.Scripts.MainGame
 
         private void CheckRespawnTimer()
         {
-            if (IsPlayerAlive)
+            if (AcceptInput)
             {
                 return;
             }
@@ -208,10 +208,14 @@ namespace PhotonCourse.Scripts.MainGame
         // Interface Methods-----------------------------------------------------------------------
         public void BeforeUpdate()
         {
-            if (Runner.LocalPlayer == Object.InputAuthority && IsPlayerAlive)
+            if (Runner.LocalPlayer == Object.InputAuthority && AcceptInput)
             {
                 _horizontalInput = Input.GetAxis(CS_Input.HORIZONTAL);
             }
         }
+
+        // Getters & Setters-----------------------------------------------------------------------
+
+        public bool AcceptInput => IsPlayerAlive && !GameManager.IsMatchOver;
     }
 }

@@ -80,7 +80,7 @@ namespace PhotonCourse.Scripts.MainGame
             IsHoldingFireButton = input.networkButton.IsSet(PlayerInputButtons.Fire1);
 
             if (input.networkButton.IsSet(PlayerInputButtons.Fire1) && 
-                _shootCoolDown.ExpiredOrNotRunning(Runner)  && _playerController.IsPlayerAlive)
+                _shootCoolDown.ExpiredOrNotRunning(Runner)  && _playerController.AcceptInput)
             {
                 _shootCoolDown = TickTimer.CreateFromSeconds(Runner, _delayBetweenShots);
                 //TODO - Shoot
@@ -116,7 +116,7 @@ namespace PhotonCourse.Scripts.MainGame
 
         public void BeforeUpdate()
         {
-            if (Runner.LocalPlayer == Object.InputAuthority && _playerController.IsPlayerAlive)
+            if (Runner.LocalPlayer == Object.InputAuthority && _playerController.AcceptInput)
             {
                 var direction = _localCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
