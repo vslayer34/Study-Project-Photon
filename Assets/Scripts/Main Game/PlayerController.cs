@@ -90,6 +90,12 @@ namespace PhotonCourse.Scripts.MainGame
         public override void Render()
         {
             // _playerAnimController.UpdateCharacterAnimations(_rigidBody.linearVelocity);
+            if (!AcceptInput)
+            {
+                _playerAnimController.UpdateCharacterAnimations(Vector3.zero, false);
+                return;
+            }
+
             _playerAnimController.UpdateCharacterAnimations(_rigidBody.linearVelocity, _playerWeaponController.IsHoldingFireButton);
         }
 
