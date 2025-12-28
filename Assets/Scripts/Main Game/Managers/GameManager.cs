@@ -9,6 +9,7 @@ namespace PhotonCourse.Scripts.MainGame.Managers
 {
     public class GameManager : NetworkBehaviour
     {
+        public event Action OnMatchFinished;
         public static bool IsMatchOver;
 
         [SerializeField]
@@ -26,6 +27,14 @@ namespace PhotonCourse.Scripts.MainGame.Managers
 
 
         // Game Loop Methods---------------------------------------------------------------------------
+
+        private void Awake()
+        {
+            if (GlobalsManager.Instance != null)
+            {
+                GlobalsManager.Instance.GameManagerInstance = this;
+            }
+        }
 
         public override void Spawned()
         {
@@ -47,6 +56,7 @@ namespace PhotonCourse.Scripts.MainGame.Managers
                 IsMatchOver = true;
                 _MatchTimer = TickTimer.None;
 
+                OnMatchFinished?.Invoke();
                 Debug.Log("The round is over");
             }
         }

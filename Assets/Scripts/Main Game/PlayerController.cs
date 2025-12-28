@@ -59,6 +59,16 @@ namespace PhotonCourse.Scripts.MainGame
         private float _horizontalInput;
 
 
+        [SerializeField, Header("Grounded variables")]
+        private LayerMask _groundLayerMask;
+
+        [SerializeField]
+        private Transform _groundDetector;
+
+        [Networked]
+        private NetworkBool _IsGrounded { get; set; }
+
+
 
         // Network Methods-------------------------------------------------------------------------
 
@@ -111,6 +121,7 @@ namespace PhotonCourse.Scripts.MainGame
         {
             if (Runner.LocalPlayer == Object.InputAuthority)
             {
+                _cameraGroup.transform.SetParent(null);
                 _cameraGroup.SetActive(true);
                 var userName = GlobalsManager.Instance.NetwrokRunnerControllerInstance.PlayerName;
                 RpcSetLocalPlayerName(userName);
@@ -129,10 +140,16 @@ namespace PhotonCourse.Scripts.MainGame
             // Debug.Log("I'm Before Jumping!!!", this);
 
             // if (lastPressed.WasPressed(ButtonPrev, PlayerInputButtons.Jump))
-            if (input.networkButton.WasPressed(ButtonPrev, PlayerInputButtons.Jump))
+            _IsGrounded = (bool)Runner.GetPhysicsScene2D().OverlapBox(_groundDetector.position, _groundDetector.localScale,0.0f, _groundLayerMask);
+
+
+            if (_IsGrounded)
             {
-                _rigidBody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-                Debug.Log("I'm Jumping!!!", this);
+                if (input.networkButton.WasPressed(ButtonPrev, PlayerInputButtons.Jump))
+                {
+                    _rigidBody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+                    Debug.Log("I'm Jumping!!!", this);
+                }
             }
 
             ButtonPrev = input.networkButton;

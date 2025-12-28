@@ -13,6 +13,7 @@ public class GlobalsManager : MonoBehaviour
     public NetworkRunnerController NetwrokRunnerControllerInstance { get; private set; }
     public PlayerSpawnerController PlayerSpawnerControllerInstance { get; set; }
     public ObjectPoolManager ObjectPoolManagerInstance { get; set; }
+    public GameManager GameManagerInstance { get; set; }
 
 
 
