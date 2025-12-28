@@ -28,13 +28,34 @@ namespace PhotonCourse.Scripts.MainGame
 
         private const int MAX_HEALTH_AMOUNT = 100;
 
+        [SerializeField]
+        private Collider2D _collider;
+
+        [SerializeField]
+        private LayerMask _fallDetectorLayerMask;
+
 
 
         // Network Loop Methods--------------------------------------------------------------------
 
         public override void Spawned()
         {
+            _collider = GetComponent<Collider2D>();
             _CurrentHealthAmount = MAX_HEALTH_AMOUNT;
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            if (Runner.IsServer && _playerController.IsPlayerAlive)
+            {
+                var hit = Runner.GetPhysicsScene2D().OverlapBox(transform.position, _collider.bounds.size, 0.0f, _fallDetectorLayerMask);
+
+                if (hit != default)
+                {
+                    Debug.Log("Sensie HIT FASH5!!!");
+                    Rpc_TakeDamage(MAX_HEALTH_AMOUNT);
+                }
+            }
         }
 
         // Member Methods--------------------------------------------------------------------------

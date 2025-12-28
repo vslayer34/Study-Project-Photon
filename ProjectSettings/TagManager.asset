@@ -14,7 +14,7 @@ TagManager:
   - Ground
   - PlayerHitBox
   - Player
-  - 
+  - DeathFallDetector
   - 
   - 
   - 

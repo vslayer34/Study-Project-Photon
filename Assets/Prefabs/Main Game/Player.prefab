@@ -1126,6 +1126,10 @@ MonoBehaviour:
   _bloodScreenAnimator: {fileID: 2002953208496921847}
   _fillImage: {fileID: 1336865735405299184}
   _healthAmountLabel: {fileID: 925232477841465612}
+  _collider: {fileID: 5482263092700164448}
+  _fallDetectorLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &158439848222957517
 MonoBehaviour:
   m_ObjectHideFlags: 0
