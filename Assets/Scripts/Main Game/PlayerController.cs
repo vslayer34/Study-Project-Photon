@@ -68,6 +68,9 @@ namespace PhotonCourse.Scripts.MainGame
         [Networked]
         private NetworkBool _IsGrounded { get; set; }
 
+        [Networked]
+        private TickTimer _TimerToChangePosition { get; set; }
+
 
 
         // Network Methods-------------------------------------------------------------------------
@@ -183,25 +186,26 @@ namespace PhotonCourse.Scripts.MainGame
 
         public void KillPlayer()
         {
+            const float TIME_TO_SPAWN = 5.0f;
             if (Runner.IsServer)
             {
                 var playerSpawner = GlobalsManager.Instance.PlayerSpawnerControllerInstance;
 
                 _NextSpawnPosition = playerSpawner.GetRandomSpawnPoint();
+                _TimerToChangePosition = TickTimer.CreateFromSeconds(Runner, TIME_TO_SPAWN - 1.0f);
             }
 
             _rigidBody.simulated = false;
             _playerAnimController.UpdateDeathAnimations();
             IsPlayerAlive = false;
-            RespawnTimer = TickTimer.CreateFromSeconds(Runner, 5.0f);
+            RespawnTimer = TickTimer.CreateFromSeconds(Runner, TIME_TO_SPAWN);
         }
 
         private void RespawnPlayer()
         {
             IsPlayerAlive = true;
             _rigidBody.simulated = true;
-            _rigidBody.position = _NextSpawnPosition;
-            _rigidBody.position = _NextSpawnPosition;
+            // _rigidBody.position = _NextSpawnPosition;
             
             _playerHealthController.ResetHealthOnRespawn();
             _playerAnimController.UpdateRespawnAnimations();
@@ -214,6 +218,11 @@ namespace PhotonCourse.Scripts.MainGame
                 return;
             }
 
+            if (_TimerToChangePosition.Expired(Runner))
+            {
+                _TimerToChangePosition = TickTimer.None;
+                GetComponent<NetworkRigidbody2D>().TeleportToPosition(_NextSpawnPosition);
+            }
             if (RespawnTimer.Expired(Runner))
             {
                 RespawnTimer = TickTimer.None;

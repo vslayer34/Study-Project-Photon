@@ -1277,7 +1277,7 @@ MonoBehaviour:
   _interpolationDataSource: 3
   _mainCamera: {fileID: 3050599233138944567}
   _timerTextField: {fileID: 366763674}
-  _matchTimerInSeconds: 20
+  _matchTimerInSeconds: 150
 --- !u!114 &245002295032148596
 MonoBehaviour:
   m_ObjectHideFlags: 0
