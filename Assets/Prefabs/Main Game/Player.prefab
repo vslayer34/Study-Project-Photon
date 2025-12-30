@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 8853602855354256316}
   - component: {fileID: 1506513178850021041}
   - component: {fileID: 7873756846947923393}
+  - component: {fileID: 2473455801095043788}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -601,6 +602,26 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &2473455801095043788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021608096255261077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineConfiner2D
+  BoundingShape2D: {fileID: 0}
+  Damping: 0.5
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
 --- !u!1 &2129288949713408668
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,6 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhotonCourse.Scripts.MainGame.PlayerCameraController
   _cameraImpulseSource: {fileID: 65137368290980769}
+  _confinerComponent: {fileID: 2473455801095043788}
 --- !u!1 &3639835981933760586
 GameObject:
   m_ObjectHideFlags: 0

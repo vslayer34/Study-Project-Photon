@@ -1,3 +1,4 @@
+using PhotonCourse.Scripts.MainGame.Managers;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -8,7 +9,16 @@ namespace PhotonCourse.Scripts.MainGame
         [SerializeField]
         private CinemachineImpulseSource _cameraImpulseSource;
 
+        [SerializeField]
+        private CinemachineConfiner2D _confinerComponent;
 
+
+        // Game Loop Methods-----------------------------------------------------------------------
+
+        private void Start()
+        {
+            _confinerComponent.BoundingShape2D = GlobalsManager.Instance.GameManagerInstance.CameraBoundsCollider;
+        }
 
         // Member Methods------------------------------------------------------------------------------
 

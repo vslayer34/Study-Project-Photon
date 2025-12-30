@@ -9,6 +9,9 @@ namespace PhotonCourse.Scripts.MainGame.Managers
 {
     public class GameManager : NetworkBehaviour
     {
+        [field: SerializeField, Header("Camera Boundaries")]
+        public Collider2D CameraBoundsCollider { get; private set; }
+        
         public event Action OnMatchFinished;
         public static bool IsMatchOver;
 
