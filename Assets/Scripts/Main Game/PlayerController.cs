@@ -248,6 +248,6 @@ namespace PhotonCourse.Scripts.MainGame
 
         // Getters & Setters-----------------------------------------------------------------------
 
-        public bool AcceptInput => IsPlayerAlive && !GameManager.IsMatchOver;
+        public bool AcceptInput => IsPlayerAlive && !GameManager.IsMatchOver && !PlayerChatController.IsTyping;
     }
 }

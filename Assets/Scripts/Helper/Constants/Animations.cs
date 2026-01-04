@@ -21,5 +21,10 @@ namespace PhotonCourse.Scripts.Helper.Constants
         {
             public const string BLOOD_SCREEN_ANIME_NAME = "Blood Screen Hit";
         }
+
+        public static class ChatBubble
+        {
+            public const string POP_IN = "pop_in";
+        }
     }
 }
